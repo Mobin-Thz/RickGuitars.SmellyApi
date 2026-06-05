@@ -25,6 +25,17 @@ builder.Services.AddScoped<OrderService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowEverything", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -32,6 +43,9 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<RickGuitarsDbContext>();
     SeedData.Initialize(db);
 }
+
+
+app.UseCors("AllowEverything");
 
 app.UseSwagger();
 app.UseSwaggerUI();
