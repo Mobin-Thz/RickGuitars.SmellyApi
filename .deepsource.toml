@@ -1,0 +1,19 @@
+version = 1
+
+test_patterns = [
+  "**/*Tests/**",
+  "**/*.Tests/**",
+  "**/*Test.cs",
+  "**/*Tests.cs"
+]
+
+exclude_patterns = [
+  "**/bin/**",
+  "**/obj/**",
+  "**/Migrations/**",
+  "**/Properties/launchSettings.json"
+]
+
+[[analyzers]]
+name = "csharp"
+enabled = true
