@@ -107,13 +107,15 @@ public class DeepSourceIssuesController : ControllerBase
             receipt += product.Name + ", ";
         }
 
-        // Problem 9: empty catch block
+        // Problem 9: handle specific payment exception
         try
         {
             FakePayment(customerEmail, total);
         }
-        catch (Exception)
+        catch (PaymentException ex)
         {
+            _logger.LogError(ex, "Payment processing failed for {Email} with amount {Total}.", customerEmail, total);
+            return BadRequest("Payment processing failed.");
         }
 
         return Ok(new
